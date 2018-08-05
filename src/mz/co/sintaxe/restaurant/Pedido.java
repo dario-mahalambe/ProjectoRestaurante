@@ -1,4 +1,4 @@
-package mz.co.sintaxe.mpesa;
+package mz.co.sintaxe.restaurant;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ public class Pedido {
 
     public Pedido() {
 
-        int contador = 1 + 1;
+        int contador = 0 + 1;
         this.nome = "Pedido00"+contador;
         listaDeProductos = new ArrayList<>();
 

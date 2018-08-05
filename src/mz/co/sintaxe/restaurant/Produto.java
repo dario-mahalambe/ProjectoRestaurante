@@ -1,4 +1,4 @@
-package mz.co.sintaxe.mpesa;
+package mz.co.sintaxe.restaurant;
 
 public class Produto {
 
