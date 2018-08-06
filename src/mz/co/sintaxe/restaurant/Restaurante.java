@@ -12,6 +12,8 @@ public class Restaurante {
 
     static int escolhaMenuPrincipal;
 
+    static int escolhaPedidoPendente;
+
     static ArrayList<Produto> listaDeBebidas = new ArrayList<>();
 
     static ArrayList<Produto> listaDePratos = new ArrayList<>();
@@ -23,26 +25,49 @@ public class Restaurante {
     static Pedido pedido;
 
 
+    static int contador = 0;
+
+    static ArrayList<Pedido> listaDePedidosPendentes = new ArrayList<>();
+
+    static ArrayList<Pedido> listaDePedidosPagos = new ArrayList<>();
+
+
     public static void main(String[] args) {
 
-        listaDeBebidas.add(new Produto("Fanta",40));
-        listaDeBebidas.add(new Produto("Coco-Cola",60));
+        listaDeBebidas.add(new Produto("Fanta", 40));
+        listaDeBebidas.add(new Produto("Coco-Cola", 60));
 
-        listaDePratos.add(new Produto("Frango a Zambeziana",400));
-        listaDePratos.add(new Produto("Carne de Porco",600));
+        listaDePratos.add(new Produto("Frango a Zambeziana", 400));
+        listaDePratos.add(new Produto("Carne de Porco", 600));
 
 
         menuPrinciapal();
 
-        escolhaMenuPrincipal = scanner.nextInt();
+
+
+
+    }
+
+
+    private static void menuPrinciapal() {
+        System.out.println("----------Menu Princiapl-----------");
+        System.out.println("1. Criar Pedido");
+        System.out.println("2. Lista de Pedido Pendentes");
+        System.out.println("3. Lista de Pedidos Pagos");
+
+        System.out.println("Escoha uma opcao");
+
 
         while (true) {
+
+            escolhaMenuPrincipal = scanner.nextInt();
 
             switch (escolhaMenuPrincipal) {
 
                 case 1:
 
-                    pedido = new Pedido(); //Cria um novo pedido
+                    contador +=1;
+                    pedido = new Pedido(contador); //Cria um novo pedido
                     menuPedido();
 
                 case 2:
@@ -56,19 +81,7 @@ public class Restaurante {
             }
 
         }
-
     }
-
-
-    private static void menuPrinciapal() {
-        System.out.println("----------Menu Princiapl-----------");
-        System.out.println("1. Criar Pedido");
-        System.out.println("2. Lista de Pedido Pendentes");
-        System.out.println("3. Lista de Pedidos Pagos");
-
-        System.out.println("Escoha uma opcao");
-    }
-
 
     private static void menuPedido() {
 
@@ -80,27 +93,31 @@ public class Restaurante {
         System.out.println("Escoha uma opcao");
 
 
-        int escolhaMenuPedido = scanner.nextInt(); //Pede ao utilizador para escolher um opcao no menu Pedido
-
-        while (true){
 
 
-            if (escolhaMenuPedido == 1){
+        while (true) {
+            int escolhaMenuPedido = scanner.nextInt(); //Pede ao utilizador para escolher um opcao no menu Pedido
 
-                menuBebidas( pedido);
+            if (escolhaMenuPedido == 1) {
 
-            }else if (escolhaMenuPedido == 2){
+                menuBebidas(pedido);
+
+            } else if (escolhaMenuPedido == 2) {
 
                 menuPratos(pedido);
 
-            }else if (escolhaMenuPedido == 3){
+            } else if (escolhaMenuPedido == 3) {
 
                 pedido.imprimirPedido();
+
+                listaDePedidosPendentes.add(pedido);
+
+                menuPrinciapal();
 
                 break;
                 // Fechar o pedido
 
-            }else if (escolhaMenuPedido == 4){
+            } else if (escolhaMenuPedido == 4) {
 
                 menuPrinciapal();
                 break;
@@ -112,7 +129,6 @@ public class Restaurante {
 
     }
 
-
     private static void menuBebidas(Pedido pedido) {
 
         System.out.println("----------Menu Bebidas-----------");
@@ -123,9 +139,9 @@ public class Restaurante {
 
         escolhaMenuBebidas = scanner.nextInt();
 
-        while (true){
+        while (true) {
 
-            if (escolhaMenuBebidas == 1){
+            if (escolhaMenuBebidas == 1) {
 
                 //Colocar metodo para adicionar bebida 1 no pedido do cliente
                 pedido.adiconarProduto(listaDeBebidas.get(0));
@@ -142,7 +158,7 @@ public class Restaurante {
                 System.out.println("Pretende adicionar mais bebidas ? Se nao selecione 0.");
                 escolhaMenuBebidas = scanner.nextInt();
 
-            }else if (escolhaMenuBebidas==3){
+            } else if (escolhaMenuBebidas == 3) {
 
                 System.out.println("Pedido terminado");
                 menuPedido();
@@ -151,7 +167,6 @@ public class Restaurante {
             }
 
         }
-
 
 
     }
@@ -167,9 +182,9 @@ public class Restaurante {
 
         escolhaMenuPratos = scanner.nextInt();
 
-        while (true){
+        while (true) {
 
-            if (escolhaMenuPratos == 1){
+            if (escolhaMenuPratos == 1) {
 
                 //Colocar metodo para adicionar bebida 1 no pedido do cliente
                 pedido.adiconarProduto(listaDePratos.get(0));
@@ -186,7 +201,7 @@ public class Restaurante {
                 System.out.println("Pretende adicionar mais pratos ? Se nao selecione 0.");
                 escolhaMenuPratos = scanner.nextInt();
 
-            }else if (escolhaMenuPratos == 3){
+            } else if (escolhaMenuPratos == 3) {
 
                 System.out.println(" ");
                 menuPedido();
@@ -197,22 +212,84 @@ public class Restaurante {
         }
 
 
-
-
-
-
     }
 
     private static void pedidosPagos() {
+
+        for (int i = 0; i < listaDePedidosPagos.size(); i++) {
+
+            System.out.println(1+i+"."+ listaDePedidosPagos.get(i).getNome());
+            listaDePedidosPagos.get(i).imprimirPedido();
+        }
+
     }
 
     private static void menuListaPedentes() {
+
+
+
+        for (int i = 0; i < listaDePedidosPendentes.size(); i++) {
+
+            System.out.println(i+1+"."+listaDePedidosPendentes.get(i).getNome());
+
+        }
+
+        escolhaPedidoPendente = scanner.nextInt();
+
+        Pedido pedido = devolverPedidoNaPosicao(escolhaPedidoPendente);
+
+        System.out.println("O valor a pagar e "+pedido.getTotal());
+
+        double valorAPagar = scanner.nextDouble();
+
+        if (valorAPagar == pedido.getTotal()){
+
+            for (int i = 0; i < listaDePedidosPendentes.size(); i++) {
+
+
+                if (listaDePedidosPendentes.get(i).equals(pedido)){
+
+                    listaDePedidosPagos.add(listaDePedidosPendentes.get(i));
+
+                    listaDePedidosPendentes.remove(i);
+
+                    break;
+
+                }
+
+            }
+
+            menuPrinciapal();
+
+        }else {
+
+            System.out.println("Valor incorrecto!");
+
+            menuListaPedentes();
+
+        }
+
+
+
+
+
     }
 
+    private static Pedido devolverPedidoNaPosicao(int posicao){
 
 
+        posicao -= 1;
 
+        if (listaDePedidosPendentes.size() > posicao){
 
+            Pedido pedido = listaDePedidosPendentes.get(posicao);
+
+        }else {
+            System.out.println("Posicao nao existe");
+        }
+
+        return pedido;
+    }
 
 
 }

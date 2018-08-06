@@ -8,10 +8,15 @@ public class Pedido {
 
     private ArrayList<Produto> listaDeProductos;
 
+    private double total;
 
-    public Pedido() {
 
-        int contador = 0 + 1;
+    public double getTotal() {
+        return total;
+    }
+
+    public Pedido(int contador) {
+
         this.nome = "Pedido00"+contador;
         listaDeProductos = new ArrayList<>();
 
@@ -36,7 +41,7 @@ public class Pedido {
 
         System.out.println(nome);
 
-        double total = 0;
+        total = 0;
 
         for (int i = 0; i < listaDeProductos.size(); i++) {
 
